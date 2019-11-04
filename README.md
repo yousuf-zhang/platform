@@ -1,2 +1,4 @@
 # platform
 基于springboot的基础架构后端
+用于学习springboot的基础框架，作为基础项目的脚手架
+用于记录自己学习过程
