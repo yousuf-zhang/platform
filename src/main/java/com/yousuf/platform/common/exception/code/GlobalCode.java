@@ -13,6 +13,8 @@ import lombok.Getter;
 public enum  GlobalCode implements RestCode {
     /**全局状态码*/
     SUCCESS(0, "Success"),
+    UNKNOWN(999, "系统异常"),
+    UTILS_ERROR(998, "工具类不允许实例化"),
     ;
 
     private Integer code;
