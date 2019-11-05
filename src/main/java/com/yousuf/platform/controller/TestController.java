@@ -4,7 +4,10 @@ import com.yousuf.platform.common.core.RestResponse;
 import com.yousuf.platform.common.exception.UtilsException;
 import com.yousuf.platform.common.exception.code.GlobalCode;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * <p> Title: TestController
@@ -19,6 +22,11 @@ public class TestController {
     public RestResponse<String> getUtilsException() {
         throw new UtilsException(GlobalCode.UTILS_ERROR, "工具类异常");
         //return RestResponse.success();
+    }
+
+    @PostMapping("/test/valid")
+    public RestResponse<DemoDTO> getDemo(@Valid DemoDTO demoDTO) {
+        return RestResponse.success(demoDTO);
     }
 
 }

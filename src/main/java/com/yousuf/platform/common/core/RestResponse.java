@@ -4,6 +4,7 @@ import com.yousuf.platform.common.exception.code.GlobalCode;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * <p> Title: RestResponse
@@ -16,11 +17,17 @@ public class RestResponse<T> implements Serializable {
     private static final long serialVersionUID = 7545652265259278927L;
     private Integer code;
     private String message;
+    private Set<ValidError> errors;
     private T result;
 
-    public RestResponse(Integer code, String message) {
+    public RestResponse(Integer code, String message, Set<ValidError> errors) {
         this.code = code;
         this.message = message;
+        this.errors = errors;
+    }
+
+    public RestResponse(Integer code, String message) {
+       this(code, message, null);
     }
 
     public RestResponse() {
@@ -66,4 +73,21 @@ public class RestResponse<T> implements Serializable {
     public static <T> RestResponse<T> error(RestCode code) {
         return new RestResponse<>(code.getCode(),code.getText());
     }
+
+    /**
+     * Title: error
+     * Description: 返回带错误信息的信息
+     *
+     * @param code 错误码
+     * @param errors 错误内容
+     * @return com.yousuf.platform.common.core.RestResponse<T>
+     *
+     * @author yousuf zhang 2019/11/6
+     **/
+    public static <T> RestResponse<T> error(RestCode code, Set<ValidError> errors) {
+        return new RestResponse<>(code.getCode(),code.getText(), errors);
+    }
+
+
+
 }

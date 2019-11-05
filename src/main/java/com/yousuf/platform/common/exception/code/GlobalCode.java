@@ -15,6 +15,7 @@ public enum  GlobalCode implements RestCode {
     SUCCESS(0, "Success"),
     UNKNOWN(999, "系统异常"),
     UTILS_ERROR(998, "工具类不允许实例化"),
+    PARAMS_ERROR(997, "参数校验异常"),
     ;
 
     private Integer code;
