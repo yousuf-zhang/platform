@@ -1,4 +1,4 @@
-package com.yousuf.platform.common.exception;
+package com.yousuf.platform.exception;
 
 import com.yousuf.platform.common.core.RestCode;
 
