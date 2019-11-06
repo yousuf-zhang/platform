@@ -1,10 +1,10 @@
-package com.yousuf.platform.common.exception;
+package com.yousuf.platform.exception;
 
 import com.google.common.collect.Sets;
 import com.yousuf.platform.common.core.RestCode;
 import com.yousuf.platform.common.core.RestResponse;
 import com.yousuf.platform.common.core.ValidError;
-import com.yousuf.platform.common.exception.code.GlobalCode;
+import com.yousuf.platform.exception.code.GlobalCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.validation.BindException;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,7 +28,18 @@ import java.util.Set;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
+    /**
+     * Title: handleBindException
+     * Description: 通过注解校验异常处理
+     *
+     * @param ex 异常
+     * @param response 返回信息
+     *
+     * @return com.yousuf.platform.common.core.RestResponse<java.lang.Object>
+     *
+     * @author zhangshuai 2019/11/6
+     *
+     */
     @Order(1)
     @ResponseBody
     @ExceptionHandler(value= BindException.class)
@@ -43,6 +55,47 @@ public class GlobalExceptionHandler {
         return RestResponse.error(GlobalCode.PARAMS_ERROR, errors);
     }
 
+    /**
+     * Title: handleConstraintViolationException
+     * Description: 手动抛出异常处理
+     *
+     * @param ex 异常
+     * @param response 返回
+     *
+     * @return com.yousuf.platform.common.core.RestResponse<java.lang.Object>
+     *
+     * @author zhangshuai 2019/11/6
+     *
+     */
+    @Order(1)
+    @ResponseBody
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    public RestResponse<Object> handleConstraintViolationException(ConstraintViolationException ex,
+                                                                   HttpServletResponse response) {
+        // 设置状态码为500
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        Set<ValidError> errors = Sets.newHashSet();
+        ex.getConstraintViolations().forEach(constraintViolation -> {
+            ValidError error = new ValidError(constraintViolation.getPropertyPath().toString(),constraintViolation.getMessage());
+            errors.add(error);
+            log.warn("参数格式不正确 {} -> {}", error.getFiled(), error.getMessage());
+        });
+        return RestResponse.error(GlobalCode.PARAMS_ERROR, errors);
+    }
+
+    /**
+     * Title: handler
+     * Description: 统一异常处理
+     *
+     * @param request 请求
+     * @param throwable 错误
+     * @param response 返回
+     *
+     * @return com.yousuf.platform.common.core.RestResponse<java.lang.Object>
+     *
+     * @author zhangshuai 2019/11/6
+     *
+     */
     @ResponseBody
     @ExceptionHandler(value = Throwable.class)
     public RestResponse<Object> handler(ServletRequest request, Throwable throwable, HttpServletResponse response) {

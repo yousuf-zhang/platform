@@ -1,6 +1,6 @@
 package com.yousuf.platform.common.core;
 
-import com.yousuf.platform.common.exception.code.GlobalCode;
+import com.yousuf.platform.exception.code.GlobalCode;
 import lombok.Data;
 
 import java.io.Serializable;

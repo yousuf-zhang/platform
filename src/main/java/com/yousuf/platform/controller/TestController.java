@@ -1,8 +1,9 @@
 package com.yousuf.platform.controller;
 
 import com.yousuf.platform.common.core.RestResponse;
-import com.yousuf.platform.common.exception.UtilsException;
-import com.yousuf.platform.common.exception.code.GlobalCode;
+import com.yousuf.platform.common.util.ValidatorHelper;
+import com.yousuf.platform.exception.UtilsException;
+import com.yousuf.platform.exception.code.GlobalCode;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,13 @@ public class TestController {
 
     @PostMapping("/test/valid")
     public RestResponse<DemoDTO> getDemo(@Valid DemoDTO demoDTO) {
+        return RestResponse.success(demoDTO);
+    }
+
+    @PostMapping("/test/valid1")
+    public RestResponse<DemoDTO> getDemo1(DemoDTO demoDTO) {
+        // 手动校验
+        ValidatorHelper.validate(demoDTO);
         return RestResponse.success(demoDTO);
     }
 

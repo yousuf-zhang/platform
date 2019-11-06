@@ -2,7 +2,7 @@ package com.yousuf.platform.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.yousuf.platform.common.core.RestResponse;
-import com.yousuf.platform.common.exception.code.GlobalCode;
+import com.yousuf.platform.exception.code.GlobalCode;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -52,6 +52,18 @@ class TestControllerTest {
     @Test
     public void test_valid_desc_max() throws Exception {
         ResultActions actions = mockMvc.perform(post("/test/valid")
+                .param("title", "test")
+                .param("desc", "asdfasdfasdfasdfasdfasdfasdfadsfasdf"))
+                .andExpect(status().is5xxServerError())
+                .andExpect(jsonPath("code").value(997))
+                .andExpect(jsonPath("errors").exists());
+        actions.andReturn().getResponse().setCharacterEncoding("utf-8");
+        actions.andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void test_valid() throws Exception {
+        ResultActions actions = mockMvc.perform(post("/test/valid1")
                 .param("title", "test")
                 .param("desc", "asdfasdfasdfasdfasdfasdfasdfadsfasdf"))
                 .andExpect(status().is5xxServerError())

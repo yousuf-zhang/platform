@@ -1,4 +1,4 @@
-package com.yousuf.platform.common.exception.code;
+package com.yousuf.platform.exception.code;
 
 import com.yousuf.platform.common.core.RestCode;
 import lombok.Getter;
