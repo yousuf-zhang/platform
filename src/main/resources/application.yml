@@ -19,6 +19,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  cache:
+    type: caffeine
+    cache-names: jwtToken
+    caffeine:
+      spec: initialCapacity=50,maximumSize=5000,expireAfterWrite=15m
 platform:
   jwt:
     expiration: 240
@@ -26,3 +31,5 @@ platform:
     private-key-path: /static/rsa/rsa-private-key.dat
     public-key-path: /static/rsa/rsa-public-key.dat
     key-size: 3072
+  register:
+    token-cache-class: com.yousuf.platform.cache.TestAuthTokenCache

@@ -1,8 +1,10 @@
 package com.yousuf.platform.common.core;
 
-import com.yousuf.platform.exception.code.GlobalCode;
-import org.junit.jupiter.api.Assertions;
+import com.yousuf.platform.common.infrastructure.AuthTokenCache;
+import com.yousuf.platform.vo.UserInfoDTO;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * <p> Title: BaseEnumTest
@@ -10,9 +12,14 @@ import org.junit.jupiter.api.Test;
  *
  * @author yousuf zhang 2019/11/5
  */
+@SpringBootTest
 public class BaseEnumTest {
+    @Autowired
+    private AuthTokenCache authTokenCache;
     @Test
     public void get_success_by_globalCode() {
-        Assertions.assertEquals(GlobalCode.SUCCESS, BaseEnum.findOptionalByCode(GlobalCode.class, 0).get());
+        authTokenCache.cacheToken("adfasdf", new UserInfoDTO("test", "test"));
+        System.out.println(authTokenCache);
+        System.out.println(authTokenCache.findCurrentUserByCache("adfasdf"));
     }
 }

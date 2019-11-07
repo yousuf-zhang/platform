@@ -13,10 +13,10 @@ import lombok.Getter;
 public enum  GlobalCode implements RestCode {
     /**全局状态码*/
     SUCCESS(0, "Success"),
-    UNKNOWN(999, "系统异常"),
-    UTILS_ERROR(998, "工具类不允许实例化"),
-    PARAMS_ERROR(997, "参数校验异常"),
-    RSA_ERROR(996, "加密参数错误");
+    UNKNOWN(9999, "系统异常"),
+    UTILS_ERROR(9998, "工具类不允许实例化"),
+    PARAMS_ERROR(9997, "参数校验异常"),
+    RSA_ERROR(9996, "加密参数错误");
     ;
 
     private Integer code;

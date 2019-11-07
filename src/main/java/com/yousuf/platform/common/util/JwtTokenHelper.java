@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.convert.DurationUnit;
@@ -30,6 +31,7 @@ import java.util.Objects;
 @DependsOn({"applicationContextHelper", "rsaHelper"})
 public class JwtTokenHelper {
     private static JwtTokenConfig jwtTokenConfig;
+
     @PostConstruct
     public void init() {
         jwtTokenConfig = ApplicationContextHelper.getBean(JwtTokenConfig.class);
@@ -78,6 +80,26 @@ public class JwtTokenHelper {
         }
         return Pair.of(Objects.toString(claims.getBody().get(jwtTokenConfig.getTokenId())),
                 Objects.toString(claims.getBody().get(jwtTokenConfig.getTokenName())));
+    }
+
+    /**
+     * Title: verifyToken
+     * Description: 校验token是否合法
+     *
+     * @param token
+     * @return boolean
+     * @throws
+     *
+     * @author yousuf zhang 2019/11/8
+     **/
+    public static boolean verifyToken(String token) {
+        boolean flag = StringUtils.isNoneBlank(token)
+                && token.startsWith(getPrefix());
+        if (!flag) {
+            return false;
+        }
+        token = token.substring(getPrefix().length());
+        return !Objects.isNull(parseToken(token));
     }
 
     public static String getHeader() {
