@@ -21,8 +21,8 @@ spring:
         format_sql: true
 platform:
   jwt:
-    expiration: 40
+    expiration: 240
   rsa:
-    privateKeyPath: /static/rsa/rsa-private-key.dat
-    publicKeyPath: /static/rsa/rsa-public-key.dat
+    private-key-path: /static/rsa/rsa-private-key.dat
+    public-key-path: /static/rsa/rsa-public-key.dat
     key-size: 3072

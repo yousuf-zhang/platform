@@ -1,6 +1,7 @@
 package com.yousuf.platform.common.util;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,11 +16,11 @@ class JwtTokenHelperTest {
 
     @Test
     void generateToken() {
-        String token = JwtTokenHelper.generateToken("test", "asdfasdf");
-        System.out.println(token);
+        String token = JwtTokenHelper.generateToken("test", "username");
         Pair<String, String > pair = JwtTokenHelper.parseToken(token);
-        System.out.println(pair.getLeft());
-        System.out.println(pair.getRight());
+        Assertions.assertNotNull(pair);
+        Assertions.assertEquals(pair.getLeft(), "test");
+        Assertions.assertEquals(pair.getRight(), "username");
 
     }
 }
