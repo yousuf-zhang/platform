@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       minimum-idle: 10
-      maximum-pool-size: 50
+      maximum-pool-size: 20
       connection-test-query: SELECT 1
       max-lifetime: 1800000
       connection-timeout: 30000
@@ -19,3 +19,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+platform:
+  jwt:
+    expiration: 40
+  rsa:
+    privateKeyPath: /static/rsa/rsa-private-key.dat
+    publicKeyPath: /static/rsa/rsa-public-key.dat
+    key-size: 3072
