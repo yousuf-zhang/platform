@@ -2,6 +2,7 @@ package com.yousuf.platform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  * <p> Title: PlatformApplication
  * <p> Description: 项目启动类

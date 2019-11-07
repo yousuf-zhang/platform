@@ -28,6 +28,8 @@ ext {
     fastjsonVersion = '1.2.61'
     guavaVersion = '28.1-jre'
     commonLangVersion = '3.9'
+    jjwtVersion = '0.9.1'
+    collectionsVersion = '4.3'
 
 }
 
@@ -39,6 +41,8 @@ dependencies {
     implementation "com.alibaba:fastjson:$fastjsonVersion"
     implementation "com.google.guava:guava:$guavaVersion"
     implementation "org.apache.commons:commons-lang3:$commonLangVersion"
+    implementation "io.jsonwebtoken:jjwt:$jjwtVersion"
+    implementation "org.apache.commons:commons-collections4:$collectionsVersion"
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
