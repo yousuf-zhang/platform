@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * <p> Title: RegisterBeanConfig
- * <p> Description: //TODO
+ * <p> Description: 初始化bean配置
  *
  * @author yousuf zhang 2019/11/8
  */
@@ -31,6 +31,5 @@ public class RegisterBeanConfig {
     public static class RegisterBean {
         @NotNull
         private String tokenCacheClass;
-        private String tokenCacheName = "authTokenCache";
     }
 }

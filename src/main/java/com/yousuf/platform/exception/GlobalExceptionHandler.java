@@ -7,6 +7,7 @@ import com.yousuf.platform.common.core.ValidError;
 import com.yousuf.platform.exception.code.GlobalCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -81,6 +82,28 @@ public class GlobalExceptionHandler {
             log.warn("参数格式不正确 {} -> {}", error.getFiled(), error.getMessage());
         });
         return RestResponse.error(GlobalCode.PARAMS_ERROR, errors);
+    }
+    /**
+     * Title: handleMessageNotReadableException
+     * Description: 请求格式错误封装
+     *
+     * @param ex 错误
+     * @param response 返回
+     *
+     * @return com.yousuf.platform.common.core.RestResponse<java.lang.Object>
+     * @author zhangshuai 2019/11/8
+     *
+     */
+    @Order(1)
+    @ResponseBody
+    @ExceptionHandler(value = HttpMessageNotReadableException.class)
+    public RestResponse<Object> handleMessageNotReadableException(HttpMessageNotReadableException ex,
+                                                                  HttpServletResponse response) {
+        // 设置状态码为500
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        log.error("请求格式错误", ex);
+        return RestResponse.error(GlobalCode.DATA_SCHEMA_ERROR);
+
     }
 
     /**

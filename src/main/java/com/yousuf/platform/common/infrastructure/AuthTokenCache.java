@@ -7,6 +7,8 @@ package com.yousuf.platform.common.infrastructure;
  * @author yousuf zhang 2019/11/8
  */
 public interface AuthTokenCache {
+    /**缓存名称*/
+    String AUTH_TOKEN_CACHE_NAME = "authTokenCache";
     /**
      * Title: findUserByCache
      * Description: 根据token值查询当前用户

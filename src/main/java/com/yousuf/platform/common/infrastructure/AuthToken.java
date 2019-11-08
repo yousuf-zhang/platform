@@ -1,5 +1,7 @@
 package com.yousuf.platform.common.infrastructure;
 
+import com.yousuf.platform.common.util.WebUtils;
+
 /**
  * <p> Title: AuthToken
  * <p> Description: 收取token抽象
@@ -33,7 +35,7 @@ public interface AuthToken {
      *
      * @author yousuf zhang 2019/11/8
      **/
-    default String likeName() {
+    default String getLikeName() {
         return null;
     }
     /**
@@ -44,7 +46,7 @@ public interface AuthToken {
      *
      * @author yousuf zhang 2019/11/8
      **/
-    default String loginIp() {
-        return null;
+    default String getLoginIp() {
+        return WebUtils.getIpAddress();
     }
 }

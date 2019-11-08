@@ -15,9 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class BaseEnumTest {
     @Autowired
-    private AuthTokenCache authTokenCache;
     @Test
     public void get_success_by_globalCode() {
+        AuthTokenCache authTokenCache = (AuthTokenCache) ApplicationContextHelper.getBean("authTokenCache");
         authTokenCache.cacheToken("adfasdf", new UserInfoDTO("test", "test"));
         System.out.println(authTokenCache);
         System.out.println(authTokenCache.findCurrentUserByCache("adfasdf"));

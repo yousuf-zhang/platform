@@ -110,6 +110,21 @@ public class ApplicationContextHelper implements ApplicationContextAware {
     public static <T> T getBean(String name, Class<T> requiredType) {
         return applicationContext.getBean(name, requiredType);
     }
+
+    /**
+     * Title: getBean
+     * Description: 根据名字获取Bean
+     *
+     * @param name 名字
+     *
+     * @return java.lang.Object
+     *
+     * @author zhangshuai 2019/11/8
+     *
+     */
+    public static Object getBean(String name) {
+        return applicationContext.getBean(name);
+    }
     /**
      * Title: getBeanMapByAnnotation
      * Description: 获取注解的类

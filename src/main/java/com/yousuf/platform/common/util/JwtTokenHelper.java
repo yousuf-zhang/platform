@@ -1,11 +1,9 @@
 package com.yousuf.platform.common.util;
 
 import com.yousuf.platform.common.core.ApplicationContextHelper;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -27,6 +25,7 @@ import java.util.Objects;
  *
  * @author zhangshuai 2019/11/7
  */
+@Slf4j
 @Component
 @DependsOn({"applicationContextHelper", "rsaHelper"})
 public class JwtTokenHelper {
@@ -74,39 +73,68 @@ public class JwtTokenHelper {
      *
      */
     public static Pair<String, String> parseToken(String token) {
-        Jws<Claims> claims = Jwts.parser().setSigningKey(RsaHelper.PUBLIC_KEY).parseClaimsJws(token);
-        if (claims.getBody().getExpiration().before(new Date())) {
+        if (StringUtils.isBlank(token)) {
             return null;
         }
+        Jws<Claims> claims = Jwts.parser().setSigningKey(RsaHelper.PUBLIC_KEY).parseClaimsJws(token);
         return Pair.of(Objects.toString(claims.getBody().get(jwtTokenConfig.getTokenId())),
                 Objects.toString(claims.getBody().get(jwtTokenConfig.getTokenName())));
     }
 
     /**
-     * Title: verifyToken
-     * Description: 校验token是否合法
+     * Title: verify
+     * Description: 校验事件是否过期
      *
-     * @param token
+     * @param token token
+     *
      * @return boolean
-     * @throws
      *
-     * @author yousuf zhang 2019/11/8
-     **/
-    public static boolean verifyToken(String token) {
-        boolean flag = StringUtils.isNoneBlank(token)
-                && token.startsWith(getPrefix());
-        if (!flag) {
-            return false;
+     * @author zhangshuai 2019/11/8
+     *
+     */
+    public static boolean verify(String token) {
+        boolean expiration = true;
+        try {
+            expiration = Jwts.parser()
+                    .setSigningKey(RsaHelper.PUBLIC_KEY)
+                    .parseClaimsJws(token)
+                .getBody()
+                    .getExpiration()
+                    .before(new Date());
+        } catch (ExpiredJwtException ex) {
+            log.warn("token已过期, token -> {}", token);
+        } catch (SignatureException ex) {
+            log.warn("token被人篡改, token -> {}", token);
+        } catch (MalformedJwtException ex) {
+            log.warn("token格式错误, token -> {}", token);
         }
-        token = token.substring(getPrefix().length());
-        return !Objects.isNull(parseToken(token));
+        return expiration;
     }
 
-    public static String getHeader() {
+    /**
+     * Title: findTokenByRequest
+     * Description: 根据 request header获取token
+     *
+     * @return java.lang.String
+     *
+     * @author zhangshuai 2019/11/8
+     *
+     */
+    public static String findTokenByRequest() {
+        String token = WebUtils.getRequest().getHeader(getHeader());
+        boolean flag = StringUtils.isNotBlank(token)
+                && token.startsWith(getPrefix());
+        if (!flag) {
+           return "";
+        }
+        return token.substring(getPrefix().length());
+    }
+
+    private static String getHeader() {
         return jwtTokenConfig.getHeader();
     }
 
-    public static String getPrefix() {
+     public static String getPrefix() {
         return jwtTokenConfig.getPrefix();
     }
     /**
