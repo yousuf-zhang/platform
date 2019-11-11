@@ -13,6 +13,8 @@ import lombok.Getter;
 public enum AuthCode implements RestCode {
     /**鉴权认证码*/
     NOT_LOGIN(1000, "token失效"),
+    USER_PASSWORD_ERROR(10001, "用户名或密码错误"),
+    FORBIDDEN(10002, "没有分配权限"),
     ;
 
     private Integer code;

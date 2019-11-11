@@ -1,6 +1,6 @@
 package com.yousuf.platform.common.infrastructure;
 
-import com.yousuf.platform.common.util.WebUtils;
+import java.io.Serializable;
 
 /**
  * <p> Title: AuthToken
@@ -8,10 +8,10 @@ import com.yousuf.platform.common.util.WebUtils;
  *
  * @author yousuf zhang 2019/11/8
  */
-public interface AuthToken {
+public interface AuthToken extends Serializable {
     /**
-     * Title: getUsername
-     * Description: 登录名
+     * <p> Title: getUsername
+     * <p> Description: 登录名
      *
      * @return java.lang.String
      *
@@ -19,8 +19,8 @@ public interface AuthToken {
      **/
     String getUsername();
     /**
-     * Title: getUserId
-     * Description: 用户ID
+     * <p> Title: getUserId
+     * <p> Description: 用户ID
      *
      * @return java.lang.String
      *
@@ -28,8 +28,8 @@ public interface AuthToken {
      **/
     String getUserId();
     /**
-     * Title: likeName
-     * Description: 用户显示名称
+     * <p> Title: likeName
+     * <p> Description: 用户显示名称
      *
      * @return java.lang.String
      *
@@ -39,14 +39,26 @@ public interface AuthToken {
         return null;
     }
     /**
-     * Title: loginIp
-     * Description: 登录IP
+     * <p> Title: loginIp
+     * <p> Description: 登录IP
      *
      * @return java.lang.String
      *
      * @author yousuf zhang 2019/11/8
      **/
     default String getLoginIp() {
-        return WebUtils.getIpAddress();
+        return null;
+    }
+
+    /**
+     * <p> Title: isFull
+     * <p> Description: 是否全部权限
+     *
+     * @return java.lang.Integer
+     *
+     * @author yousuf zhang 2019/11/8
+     **/
+    default Integer isFull() {
+        return 0;
     }
 }

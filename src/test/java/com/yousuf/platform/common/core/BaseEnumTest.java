@@ -18,7 +18,8 @@ public class BaseEnumTest {
     @Test
     public void get_success_by_globalCode() {
         AuthTokenCache authTokenCache = (AuthTokenCache) ApplicationContextHelper.getBean("authTokenCache");
-        authTokenCache.cacheToken("adfasdf", new UserInfoDTO("test", "test"));
+        authTokenCache.cacheToken("adfasdf",
+                UserInfoDTO.builder().userId("test").username("aaaa").build());
         System.out.println(authTokenCache);
         System.out.println(authTokenCache.findCurrentUserByCache("adfasdf"));
     }

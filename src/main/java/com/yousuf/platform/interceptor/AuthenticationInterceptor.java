@@ -43,7 +43,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
         Pair<String, String> pair = JwtTokenHelper.parseToken(token);
         AuthToken authToken = UserContextHelper.getCurrentUser();
-
         boolean isVerify = !Objects.isNull(authToken)
                 && !Objects.isNull(pair)
                 && Objects.equals(pair.getLeft(), authToken.getUserId())

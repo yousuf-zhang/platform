@@ -10,8 +10,8 @@ public interface AuthTokenCache {
     /**缓存名称*/
     String AUTH_TOKEN_CACHE_NAME = "authTokenCache";
     /**
-     * Title: findUserByCache
-     * Description: 根据token值查询当前用户
+     * <p> Title: findUserByCache
+     * <p> Description: 根据token值查询当前用户
      *
      * @param token token
      *
@@ -22,8 +22,8 @@ public interface AuthTokenCache {
      */
     AuthToken findCurrentUserByCache(String token);
     /**
-     * Title: cacheToken
-     * Description: 缓存当前登录信息
+     * <p> Title: cacheToken
+     * <p> Description: 缓存当前登录信息
      *
      * @param token token值
      * @param authToken 登录信息
@@ -36,8 +36,8 @@ public interface AuthTokenCache {
     AuthToken cacheToken(String token, AuthToken authToken);
 
     /**
-     * Title: removeCurrentUser
-     * Description: 移除缓存
+     * <p> Title: removeCurrentUser
+     * <p> Description: 移除缓存
      *
      * @param token token值
      *

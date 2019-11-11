@@ -35,8 +35,8 @@ public class RestResponse<T> implements Serializable {
     }
 
     /**
-     * Title: success
-     * Description: 返回成功信息
+     * <p> Title: success
+     * <p> Description: 返回成功信息
      *
      * @return com.yousuf.platform.common.core.RestResponse<T>
      *
@@ -47,8 +47,8 @@ public class RestResponse<T> implements Serializable {
     }
 
     /**
-     * Title: success
-     * Description: 返回结果信息
+     * <p> Title: success
+     * <p> Description: 返回结果信息
      *
      * @param result 结果
      * @return com.yousuf.platform.common.core.RestResponse<T>
@@ -62,8 +62,8 @@ public class RestResponse<T> implements Serializable {
     }
 
     /**
-     * Title: error
-     * Description: 封装错误信息
+     * <p> Title: error
+     * <p> Description: 封装错误信息
      *
      * @param code 错误码
      * @return com.yousuf.platform.common.core.RestResponse<T>
@@ -75,8 +75,8 @@ public class RestResponse<T> implements Serializable {
     }
 
     /**
-     * Title: error
-     * Description: 返回带错误信息的信息
+     * <p> Title: error
+     * <p> Description: 返回带错误信息的信息
      *
      * @param code 错误码
      * @param errors 错误内容

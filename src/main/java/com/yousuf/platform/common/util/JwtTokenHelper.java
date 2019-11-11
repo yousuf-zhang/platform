@@ -21,7 +21,7 @@ import java.util.Objects;
 
 /**
  * ClassName: JwtTokenHelper
- * Description: jwt token 辅助类
+ * <p> Description: jwt token 辅助类
  *
  * @author zhangshuai 2019/11/7
  */
@@ -37,8 +37,8 @@ public class JwtTokenHelper {
     }
 
     /**
-     * Title: generateToken
-     * Description: 生成token
+     * <p> Title: generateToken
+     * <p> Description: 生成token
      *
      * @param tokenId tokenId的名称
      * @param tokenName tokenName
@@ -62,8 +62,8 @@ public class JwtTokenHelper {
                 .compact();
     }
     /**
-     * Title: parseToken
-     * Description: 解析 token
+     * <p> Title: parseToken
+     * <p> Description: 解析 token
      *
      * @param token token值
      *
@@ -82,8 +82,8 @@ public class JwtTokenHelper {
     }
 
     /**
-     * Title: verify
-     * Description: 校验事件是否过期
+     * <p> Title: verify
+     * <p> Description: 校验事件是否过期
      *
      * @param token token
      *
@@ -112,8 +112,8 @@ public class JwtTokenHelper {
     }
 
     /**
-     * Title: findTokenByRequest
-     * Description: 根据 request header获取token
+     * <p> Title: findTokenByRequest
+     * <p> Description: 根据 request header获取token
      *
      * @return java.lang.String
      *
@@ -139,7 +139,7 @@ public class JwtTokenHelper {
     }
     /**
      * ClassName: JwtToken
-     * Description: 参数配置类
+     * <p> Description: 参数配置类
      *
      * @author zhangshuai 2019/11/7
      */

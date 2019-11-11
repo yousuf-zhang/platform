@@ -12,8 +12,8 @@ import java.util.function.Predicate;
  */
 public interface BaseEnum<V> {
     /**
-     * Title: getCode
-     * Description: 获取code值
+     * <p> Title: getCode
+     * <p> Description: 获取code值
      *
      * @return V
      *
@@ -22,8 +22,8 @@ public interface BaseEnum<V> {
     V getCode();
 
     /**
-     * Title: getText
-     * Description: 获取文本信息
+     * <p> Title: getText
+     * <p> Description: 获取文本信息
      *
      * @return java.lang.String
      *
@@ -32,8 +32,8 @@ public interface BaseEnum<V> {
     String getText();
 
     /**
-     * Title: find
-     * Description: 从指定的枚举类中查找想要的枚举,并返回一个{@link Optional},
+     * <p> Title: find
+     * <p> Description: 从指定的枚举类中查找想要的枚举,并返回一个{@link Optional},
      * 如果未找到,则返回一个{@link Optional#empty()}
      *
      * @param type 实现了{@link BaseEnum}的枚举类
@@ -51,8 +51,8 @@ public interface BaseEnum<V> {
     }
 
     /**
-     * Title: findOptionalByCode
-     * Description: 根据枚举的{@link BaseEnum#getCode()}来查找.
+     * <p> Title: findOptionalByCode
+     * <p> Description: 根据枚举的{@link BaseEnum#getCode()}来查找.
      *
      * @see this#find(Class, Predicate)
      * @param type 实现了{@link BaseEnum}的枚举类
@@ -67,8 +67,8 @@ public interface BaseEnum<V> {
     }
 
     /**
-     * Title: findOptionalByText
-     * Description: 根据枚举的{@link BaseEnum#getText()}来查找.
+     * <p> Title: findOptionalByText
+     * <p> Description: 根据枚举的{@link BaseEnum#getText()}来查找.
      *
      * @param type 实现了{@link BaseEnum}的枚举类
      * @param text 枚举 text

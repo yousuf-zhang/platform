@@ -10,11 +10,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.util.Objects;
@@ -30,8 +33,8 @@ import java.util.Set;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     /**
-     * Title: handleBindException
-     * Description: 通过注解校验异常处理
+     * <p> Title: handleBindException
+     * <p> Description: 通过注解校验异常处理
      *
      * @param ex 异常
      * @param response 返回信息
@@ -56,9 +59,23 @@ public class GlobalExceptionHandler {
         return RestResponse.error(GlobalCode.PARAMS_ERROR, errors);
     }
 
+    @Order(1)
+    @ResponseBody
+    @ExceptionHandler(value= MethodArgumentNotValidException.class)
+    public RestResponse<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex,  HttpServletResponse response){
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        BindingResult result = ex.getBindingResult();
+        Set<ValidError> errors = Sets.newHashSet();
+        result.getFieldErrors().forEach(fieldError -> {
+            log.warn("参数格式不正确 {} -> {}", fieldError.getField(), fieldError.getDefaultMessage());
+            errors.add(new ValidError(fieldError.getField(), fieldError.getDefaultMessage()));
+        });
+        return RestResponse.error(GlobalCode.PARAMS_ERROR, errors);
+    }
+
     /**
-     * Title: handleConstraintViolationException
-     * Description: 手动抛出异常处理
+     * <p> Title: handleConstraintViolationException
+     * <p> Description: 手动抛出异常处理
      *
      * @param ex 异常
      * @param response 返回
@@ -84,8 +101,8 @@ public class GlobalExceptionHandler {
         return RestResponse.error(GlobalCode.PARAMS_ERROR, errors);
     }
     /**
-     * Title: handleMessageNotReadableException
-     * Description: 请求格式错误封装
+     * <p> Title: handleMessageNotReadableException
+     * <p> Description: 请求格式错误封装
      *
      * @param ex 错误
      * @param response 返回
@@ -105,10 +122,31 @@ public class GlobalExceptionHandler {
         return RestResponse.error(GlobalCode.DATA_SCHEMA_ERROR);
 
     }
+    /**
+     * <p> Title: handleHttpRequestMethodNotSupportedException
+     * <p> Description: 请求方式不存在
+     *
+     * @param request 请求
+     * @param response 返回
+     * @return com.yousuf.platform.common.core.RestResponse<java.lang.Object>
+     *
+     * @author yousuf zhang 2019/11/11
+     **/
+    @Order(1)
+    @ResponseBody
+    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+    public RestResponse<Object> handleHttpRequestMethodNotSupportedException(HttpServletRequest request,
+                                                                             HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        log.warn("请求资源不存在 请求链接 -> {}, 请求方式 -> {}",
+                request.getRequestURI(), request.getMethod());
+        return RestResponse.error(GlobalCode.NOT_FOUND);
+
+    }
 
     /**
-     * Title: handler
-     * Description: 统一异常处理
+     * <p> Title: handler
+     * <p> Description: 统一异常处理
      *
      * @param request 请求
      * @param throwable 错误

@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 
 /**
  * ClassName: UserContextHelper
- * Description: 用户上下文辅助类
+ * <p> Description: 用户上下文辅助类
  *
  * @author zhangshuai 2019/11/8
  */
@@ -24,8 +24,8 @@ public class UserContextHelper {
     }
 
     /**
-     * Title: getCurrentUser
-     * Description: 从缓存中获取currentUser
+     * <p> Title: getCurrentUser
+     * <p> Description: 从缓存中获取currentUser
      *
      * @return com.yousuf.platform.common.infrastructure.AuthToken
      *
@@ -37,8 +37,8 @@ public class UserContextHelper {
     }
 
     /**
-     * Title: setCurrentUser
-     * Description: 把登录用户放入缓存中
+     * <p> Title: setCurrentUser
+     * <p> Description: 把登录用户放入缓存中
      *
      * @param token token
      * @param authToken 当前用户
@@ -51,8 +51,8 @@ public class UserContextHelper {
     }
 
     /**
-     * Title: removeCurrentUser
-     * Description: 把当前用户移除缓存
+     * <p> Title: removeCurrentUser
+     * <p> Description: 把当前用户移除缓存
      *
      * @author zhangshuai 2019/11/8
      *

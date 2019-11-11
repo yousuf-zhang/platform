@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * ClassName: ApplicationContextHelper
- * Description: springContext辅助类
+ * <p> Description: springContext辅助类
  *
  * @author zhangshuai 2019/11/6
  */
@@ -25,8 +25,8 @@ public class ApplicationContextHelper implements ApplicationContextAware {
     private static BeanDefinitionRegistry beanDefinitionRegistry;
 
     /**
-     * Title: registerBean
-     * Description: 手动注册bean到spring容器
+     * <p> Title: registerBean
+     * <p> Description: 手动注册bean到spring容器
      *
      * @param beanName beanName
      * @param clazz 类
@@ -49,8 +49,8 @@ public class ApplicationContextHelper implements ApplicationContextAware {
     }
 
     /**
-     * Title: setApplicationContext
-     * Description: 初始化成员变量
+     * <p> Title: setApplicationContext
+     * <p> Description: 初始化成员变量
      *
      * @param applicationContext context
      *
@@ -68,8 +68,8 @@ public class ApplicationContextHelper implements ApplicationContextAware {
     }
 
     /**
-     * Title: getBean
-     * Description: 手动获取spring容器中的bean对象
+     * <p> Title: getBean
+     * <p> Description: 手动获取spring容器中的bean对象
      *
      * @param targetClz 类
      *
@@ -96,8 +96,8 @@ public class ApplicationContextHelper implements ApplicationContextAware {
     }
 
     /**
-     * Title: getBean
-     * Description: 通过名字获取类
+     * <p> Title: getBean
+     * <p> Description: 通过名字获取类
      *
      * @param name 名字
      * @param requiredType 类型
@@ -112,8 +112,8 @@ public class ApplicationContextHelper implements ApplicationContextAware {
     }
 
     /**
-     * Title: getBean
-     * Description: 根据名字获取Bean
+     * <p> Title: getBean
+     * <p> Description: 根据名字获取Bean
      *
      * @param name 名字
      *
@@ -126,8 +126,8 @@ public class ApplicationContextHelper implements ApplicationContextAware {
         return applicationContext.getBean(name);
     }
     /**
-     * Title: getBeanMapByAnnotation
-     * Description: 获取注解的类
+     * <p> Title: getBeanMapByAnnotation
+     * <p> Description: 获取注解的类
      *
      * @param annotationClz 注解
      *

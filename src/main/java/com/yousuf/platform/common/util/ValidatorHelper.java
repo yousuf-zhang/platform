@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * ClassName: ValidatorHelper
- * Description: 手动调用参数校验
+ * <p> Description: 手动调用参数校验
  *
  * @author zhangshuai 2019/11/6
  */
@@ -27,8 +27,8 @@ public class ValidatorHelper {
     }
 
     /**
-     * Title: validate
-     * Description: 参数校验
+     * <p> Title: validate
+     * <p> Description: 参数校验
      *
      * @param object 校验参数
      * @param groups 分组
@@ -45,8 +45,8 @@ public class ValidatorHelper {
     }
 
     /**
-     * Title: validateProperty
-     * Description: 对某个属性值进行校验
+     * <p> Title: validateProperty
+     * <p> Description: 对某个属性值进行校验
      *
      * @param object 类
      * @param propertyName 属性名称
@@ -63,8 +63,8 @@ public class ValidatorHelper {
     }
 
     /**
-     * Title: validateValue
-     * Description: 对某个属性，是否是某个值进行校验
+     * <p> Title: validateValue
+     * <p> Description: 对某个属性，是否是某个值进行校验
      *
      * @param beanType 类型
      * @param propertyName 属性名称
