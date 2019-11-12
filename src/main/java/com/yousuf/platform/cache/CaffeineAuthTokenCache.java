@@ -2,6 +2,7 @@ package com.yousuf.platform.cache;
 
 import com.yousuf.platform.common.infrastructure.AuthToken;
 import com.yousuf.platform.common.infrastructure.AuthTokenCache;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -12,6 +13,7 @@ import org.springframework.cache.annotation.Cacheable;
  *
  * @author yousuf zhang 2019/11/8
  */
+@CacheConfig(cacheNames = "jwtToken")
 public class CaffeineAuthTokenCache implements AuthTokenCache {
     @Override
     @Cacheable(value = "jwtToken", key = "#token")

@@ -19,11 +19,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  cache:
-    type: caffeine
-    cache-names: jwtToken
-    caffeine:
-      spec: initialCapacity=50,maximumSize=5000,expireAfterWrite=15m
+#  cache:
+#    type: caffeine
+#    cache-names: jwtToken
+#    caffeine:
+#      spec: initialCapacity=50,maximumSize=5000,expireAfterWrite=15m
 platform:
   jwt:
     expiration: 10
@@ -40,3 +40,7 @@ platform:
     authorize-exclude-url:
       - /auth/**
       - /error
+  cache:
+    cache-specs:
+      jwtToken: initialCapacity=50,maximumSize=5000,expireAfterAccess=15m,recordStats
+      test: initialCapacity=50,maximumSize=5000,expireAfterWrite=15m
