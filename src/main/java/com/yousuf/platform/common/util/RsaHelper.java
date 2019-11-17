@@ -1,19 +1,15 @@
 package com.yousuf.platform.common.util;
 
 import com.yousuf.platform.common.core.ApplicationContextHelper;
+import com.yousuf.platform.config.ApplicationConfig;
 import com.yousuf.platform.exception.RsaException;
 import com.yousuf.platform.exception.code.GlobalCode;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
 import javax.crypto.Cipher;
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -32,12 +28,12 @@ import java.util.Base64;
 @DependsOn("applicationContextHelper")
 public class RsaHelper {
     private static final String KEY_ALGORITHM = "RSA";
-    private static RsaConfig rsaConfig;
+    private static ApplicationConfig.RsaConfig rsaConfig;
     public static  RSAPublicKey PUBLIC_KEY;
     public static RSAPrivateKey PRIVATE_KEY;
     @PostConstruct
     public void init() throws IOException, ClassNotFoundException {
-        rsaConfig = ApplicationContextHelper.getBean(RsaConfig.class);
+        rsaConfig = ApplicationContextHelper.getBean(ApplicationConfig.RsaConfig.class);
         PUBLIC_KEY = (RSAPublicKey) FileUtils.readObject(rsaConfig.getPublicKeyPath());
         PRIVATE_KEY = (RSAPrivateKey) FileUtils.readObject(rsaConfig.getPrivateKeyPath());
 
@@ -106,26 +102,6 @@ public class RsaHelper {
         FileUtils.writeObject(keyPair.getPrivate(),privateKeyName);
     }
 
-    /**
-     * ClassName: RsaConfig
-     * <p> Description: RSA参数配置
-     *
-     * @author zhangshuai 2019/11/7
-     */
-    @Data
-    @Validated
-    @Configuration
-    @ConfigurationProperties(prefix = "platform.rsa")
-    public static class RsaConfig {
-        @NotNull
-        private String privateKeyPath;
-        @NotNull
-        private String publicKeyPath;
-        // 秘钥长度
-        private Integer keySize = 2048;
-        //签名算法
-        private String signatureAlgorithm = "SHA256withRSA";
-        private String chatSet = "UTF-8";
-    }
+
 
 }

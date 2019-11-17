@@ -37,10 +37,7 @@ platform:
     authenticate-exclude-url:
       - /auth/login
       - /error
-    authorize-exclude-url:
-      - /auth/**
-      - /error
   cache:
+    jwt-token: initialCapacity=50,maximumSize=5000,expireAfterAccess=15m,recordStats
     cache-specs:
-      jwtToken: initialCapacity=50,maximumSize=5000,expireAfterAccess=15m,recordStats
       test: initialCapacity=50,maximumSize=5000,expireAfterWrite=15m

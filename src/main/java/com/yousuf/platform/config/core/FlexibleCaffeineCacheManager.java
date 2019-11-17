@@ -4,11 +4,9 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.collect.Maps;
-import lombok.Getter;
-import lombok.Setter;
+import com.yousuf.platform.config.ApplicationConfig;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,19 +19,21 @@ import java.util.Map;
  * @author zhangshuai 2019/11/12
  */
 @Configuration("cacheManager")
-@ConfigurationProperties(prefix = "platform.cache")
-@ConditionalOnClass(value = {Caffeine.class})
+@ConditionalOnClass(value = Caffeine.class)
 public class FlexibleCaffeineCacheManager extends CaffeineCacheManager implements InitializingBean {
-    @Getter
-    @Setter
-    private Map<String, String> cacheSpecs = Maps.newHashMap();
-
+    private final ApplicationConfig.FlexibleCacheConfig flexibleCacheConfig;
     private Map<String, Caffeine<Object, Object>> builders = Maps.newHashMap();
-
     private CacheLoader cacheLoader;
+
+    public FlexibleCaffeineCacheManager(ApplicationConfig.FlexibleCacheConfig flexibleCacheConfig) {
+        super();
+        this.flexibleCacheConfig = flexibleCacheConfig;
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
-        for (Map.Entry<String, String> cacheSpecEntry : cacheSpecs.entrySet()) {
+        builders.put(ApplicationConfig.FlexibleCacheConfig.JWT_TOKEN, Caffeine.from(flexibleCacheConfig.getJwtToken()));
+        for (Map.Entry<String, String> cacheSpecEntry : flexibleCacheConfig.getCacheSpecs().entrySet()) {
             builders.put(cacheSpecEntry.getKey(), Caffeine.from(cacheSpecEntry.getValue()));
         }
     }
@@ -61,4 +61,7 @@ public class FlexibleCaffeineCacheManager extends CaffeineCacheManager implement
         super.setCacheLoader(cacheLoader);
         this.cacheLoader = cacheLoader;
     }
+
+
+
 }

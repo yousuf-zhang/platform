@@ -1,7 +1,5 @@
 package com.yousuf.platform.config;
 
-import com.yousuf.platform.config.core.AuthConfig;
-import com.yousuf.platform.interceptor.AuthenticationInterceptor;
 import com.yousuf.platform.interceptor.AuthorizationInterceptor;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -20,19 +18,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @AllArgsConstructor
 public class WebAppConfig implements WebMvcConfigurer {
 
-    private final AuthenticationInterceptor authenticationInterceptor;
     private final AuthorizationInterceptor authorizationInterceptor;
-    private final AuthConfig authConfig;
+    private final ApplicationConfig.AuthConfig authConfig;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 认证拦截器
-        registry.addInterceptor(authenticationInterceptor)
-                .excludePathPatterns(authConfig.getAuthenticateExcludeUrl())
-                .addPathPatterns("/**");
-        // 权限拦截器
         registry.addInterceptor(authorizationInterceptor)
-                .excludePathPatterns(authConfig.getAuthorizeExcludeUrl())
+                .excludePathPatterns(authConfig.getAuthenticateExcludeUrl())
                 .addPathPatterns("/**");
     }
 

@@ -1,21 +1,16 @@
 package com.yousuf.platform.common.util;
 
 import com.yousuf.platform.common.core.ApplicationContextHelper;
+import com.yousuf.platform.config.ApplicationConfig;
 import io.jsonwebtoken.*;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.convert.DurationUnit;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Objects;
 
@@ -29,11 +24,11 @@ import java.util.Objects;
 @Component
 @DependsOn({"applicationContextHelper", "rsaHelper"})
 public class JwtTokenHelper {
-    private static JwtTokenConfig jwtTokenConfig;
+    private static ApplicationConfig.JwtTokenConfig jwtTokenConfig;
 
     @PostConstruct
     public void init() {
-        jwtTokenConfig = ApplicationContextHelper.getBean(JwtTokenConfig.class);
+        jwtTokenConfig = ApplicationContextHelper.getBean(ApplicationConfig.JwtTokenConfig.class);
     }
 
     /**
@@ -137,21 +132,5 @@ public class JwtTokenHelper {
      public static String getPrefix() {
         return jwtTokenConfig.getPrefix();
     }
-    /**
-     * ClassName: JwtToken
-     * <p> Description: 参数配置类
-     *
-     * @author zhangshuai 2019/11/7
-     */
-    @Data
-    @Configuration
-    @ConfigurationProperties(prefix = "platform.jwt")
-    public static class JwtTokenConfig {
-        private String header = "Authorization";
-        private String prefix = "Bearer ";
-        private String tokenId = "userId";
-        private String tokenName = "username";
-        @DurationUnit(ChronoUnit.MINUTES)
-        private Duration expiration = Duration.ofMillis(30);
-    }
+
 }

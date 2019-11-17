@@ -1,14 +1,10 @@
 package com.yousuf.platform.config.core;
 
 import com.yousuf.platform.common.infrastructure.AuthTokenCache;
+import com.yousuf.platform.config.ApplicationConfig;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * <p> Title: RegisterBeanConfig
@@ -19,17 +15,10 @@ import javax.validation.constraints.NotNull;
 @Configuration
 @AllArgsConstructor
 public class RegisterBeanConfig {
-    private final RegisterBean registerBean;
+    private final ApplicationConfig.RegisterBean registerBean;
     @Bean
     public AuthTokenCache authTokenCache() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         return (AuthTokenCache) Class.forName(registerBean.getTokenCacheClass()).newInstance();
     }
-    @Data
-    @Configuration
-    @Validated
-    @ConfigurationProperties(prefix = "platform.register")
-    public static class RegisterBean {
-        @NotNull
-        private String tokenCacheClass;
-    }
+
 }
