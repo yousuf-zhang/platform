@@ -4,7 +4,7 @@ import com.yousuf.platform.common.core.RestCode;
 
 /**
  * ClassName: RsaException
- * Description: Rsa加密异常
+ * <p> Description: Rsa加密异常
  *
  * @author zhangshuai 2019/11/7
  */

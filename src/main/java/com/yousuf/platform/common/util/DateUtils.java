@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  * ClassName: DateUtils
- * Description: 日期处理辅助类
+ * <p> Description: 日期处理辅助类
  *
  * @author zhangshuai 2019/11/7
  */
@@ -18,8 +18,8 @@ public class DateUtils {
         throw new UtilsException(GlobalCode.UTILS_ERROR, "不允许实例化");
     }
     /**
-     * Title: localDateTimeToDateConverter
-     * Description: 时间转换
+     * <p> Title: localDateTimeToDateConverter
+     * <p> Description: 时间转换
      *
      * @param localDateTime 时间
      *
