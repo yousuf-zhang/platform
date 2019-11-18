@@ -33,9 +33,9 @@ public class FlexibleCaffeineCacheManager extends CaffeineCacheManager implement
     @Override
     public void afterPropertiesSet() throws Exception {
         builders.put(ApplicationConfig.FlexibleCacheConfig.JWT_TOKEN, Caffeine.from(flexibleCacheConfig.getJwtToken()));
-        for (Map.Entry<String, String> cacheSpecEntry : flexibleCacheConfig.getCacheSpecs().entrySet()) {
-            builders.put(cacheSpecEntry.getKey(), Caffeine.from(cacheSpecEntry.getValue()));
-        }
+        this.flexibleCacheConfig.getCacheSpecs().forEach((key, value) -> {
+            builders.put(key, Caffeine.from(value));
+        });
     }
 
 

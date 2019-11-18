@@ -19,6 +19,7 @@ public enum  GlobalCode implements RestCode {
     RSA_ERROR(9996, "加密参数错误"),
     DATA_SCHEMA_ERROR(9995, "数据格式错误"),
     NOT_FOUND(9994, "资源不存在"),
+    ENUMS_CONVERT_ERROR(9993, "枚举转换异常"),
     ;
 
     private Integer code;

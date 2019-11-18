@@ -1,5 +1,8 @@
 package com.yousuf.platform.common.core;
 
+import com.yousuf.platform.exception.EnumConvertException;
+import com.yousuf.platform.exception.code.GlobalCode;
+
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -78,6 +81,22 @@ public interface BaseEnum<V> {
      **/
     static <T extends Enum & BaseEnum> Optional<T> findOptionalByText(Class<T> type, String text) {
         return find(type, e -> e.getText().equalsIgnoreCase(text));
+    }
+
+    /**
+     * <p> Title: findByCode
+     * <p> Description:  根据枚举的{@link BaseEnum#getCode()}来查找.
+     *
+     * @param type type 实现了{@link BaseEnum}的枚举类
+     * @param code 枚举code
+     * @return T
+     * @throws EnumConvertException 枚举转换异常
+     *
+     * @author yousuf zhang 2019/11/17
+     **/
+    static <T extends Enum & BaseEnum<?>> T findByCode(Class<T> type, Object code) {
+        return findOptionalByCode(type, code)
+                .orElseThrow(() -> new EnumConvertException(GlobalCode.ENUMS_CONVERT_ERROR, "枚举转换异常"));
     }
 
 }
