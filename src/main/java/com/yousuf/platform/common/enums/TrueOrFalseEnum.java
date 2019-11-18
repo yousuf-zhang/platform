@@ -24,11 +24,11 @@ public enum TrueOrFalseEnum implements BaseEnum<Integer> {
 
     @Override
     public Integer getCode() {
-        return null;
+        return this.code;
     }
 
     @Override
     public String getText() {
-        return null;
+        return this.text;
     }
 }

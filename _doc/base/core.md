@@ -8,3 +8,4 @@
 - [Caffeine Cache 缓存](./cache.md)
 - [jwt token](./token.md)
 - [授权 认证](./auth.md)
+- [jpa 整合](./jpa.md)
