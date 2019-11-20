@@ -29,13 +29,13 @@ public abstract class BaseEntity implements Serializable {
 
     @CreatedDate
     @Column(name = "gmt_create", updatable = false)
-    private LocalDateTime create;
+    private LocalDateTime createAt;
 
     @Column(name = "modified_by")
     private String modifiedBy;
 
     @LastModifiedDate
     @Column(name = "gmt_modified")
-    private LocalDateTime modified;
+    private LocalDateTime modifiedAt;
 
 }

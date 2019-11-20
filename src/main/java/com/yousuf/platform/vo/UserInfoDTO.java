@@ -1,8 +1,14 @@
 package com.yousuf.platform.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.google.common.base.Converter;
+import com.yousuf.platform.common.core.BaseDTO;
 import com.yousuf.platform.common.infrastructure.AuthToken;
-import lombok.*;
+import com.yousuf.platform.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -17,11 +23,11 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserInfoDTO implements AuthToken {
+public class UserInfoDTO extends BaseDTO<UserInfoDTO, User> implements AuthToken {
     private static final long serialVersionUID = -1524846825994888401L;
-    private String userId;
     @NotNull(message = "用户名不能为空")
     private String username;
+    @JSONField(serialize = false)
     @NotNull(message = "密码不能为空")
     private String password;
     private String likeName;
@@ -29,6 +35,11 @@ public class UserInfoDTO implements AuthToken {
     private Integer isFull;
     @JSONField(serialize = false)
     private Set<String> authorities;
+
+    @Override
+    protected Converter<UserInfoDTO, User> convert() {
+        return null;
+    }
 
     @Override
     public Integer isFull() {
@@ -46,11 +57,13 @@ public class UserInfoDTO implements AuthToken {
 
     @Override
     public String getUserId() {
-        return this.userId;
+        return String.valueOf(this.id);
     }
 
     @Override
     public String getLoginIp() {
         return this.loginIp;
     }
+
+
 }
