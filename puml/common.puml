@@ -1,0 +1,5 @@
+@startuml
+!include https://raw.githubusercontent.com/xuanye/plantuml-style-c4/master/core.puml
+skinparam wrapWidth 5000
+!define Table(name, desc) class name as "name\n(desc)" << (T,#FFAAAA) >>
+@enduml

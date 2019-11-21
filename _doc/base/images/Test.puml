@@ -1,0 +1,42 @@
+@startuml
+!include https://raw.githubusercontent.com/xuanye/plantuml-style-c4/master/core.puml
+!define Table(name,desc) class name as "name\n(desc)" << (T,#FFAAAA) >>
+GREY_ARROW
+
+hide methods
+hide stereotypes
+
+Table(sys_user_account, "用户账号") {
+    id bigint <<generated>>
+    ua_user_id bigint 用户id
+    ua_open_code varchar 登录账号
+}
+Table(sys_user, "用户信息") {
+   id bigint <<generated>>
+   u_like_name varchar 登录名
+}
+Table(sys_role, "角色") {
+   id bigint <<generated>>
+   role_name varchar 角色名
+}
+
+Table(sys_user_role, "用户角色关联") {
+   id bigint <<generated>>
+   ur_user_id bigint 用户id
+   ur_role_id bigint 角色id
+}
+
+Table(sys_permission, "权限") {
+    id bigint <<generated>>
+}
+
+Table(sys_role_permission, "角色权限") {
+    id bigint <<generated>>
+}
+
+sys_user_account }o--o| sys_user
+sys_user |o--o{ sys_user_role
+sys_role |o--o{ sys_user_role
+sys_role |o--o{ sys_role_permission
+sys_permission |o--o{ sys_role_permission
+@enduml
