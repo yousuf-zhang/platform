@@ -2,38 +2,93 @@
 !include ../common.puml
 GREY_ARROW
 hide methods
+hide stereotypes
+package "系统用户上下文" {
+Table(sys_user, "用户信息") {
+   # id bigint <<generated>>
+   u_username varchar '用户名， 用作日志操作'
+   u_like_name varchar '登录显示名称'
+   u_password varchar '密码'
+   u_password_salt varchar '密码加盐值'
+   u_status tinyint '用户状态 1：正常 0:停用'
+   u_is_delete tinyint '是否删除 1：是 0：否'
+   u_password_error tinyint '密码错误次数'
+   u_phone varchar '电话'
+   u_email varchar '邮箱'
+   u_is_full tinyint '是否拥有所有权限，超级管理员 0：否 1：是'
+   u_is_lock tinyint '是否锁定 0：否 1：是'
+   u_unlock_time timestamp '解锁时间'
+}
 
 Table(sys_user_account, "用户账号") {
     # id bigint <<generated>>
-    + ua_user_id bigint 用户id
-    ua_open_code varchar 登录账号
-}
-Table(sys_user, "用户信息") {
-   id bigint <<generated>>
-   u_like_name varchar 登录名
-}
-Table(sys_role, "角色") {
-   id bigint <<generated>>
-   role_name varchar 角色名
+    + ua_user_id bigint '用户id'
+    ua_category tinyint '账号类别',
+    ua_open_code varchar '登录账号',
+    ua_is_delete tinyint '逻辑删除 0: 未删除 1： 已删除',
 }
 
-Table(sys_user_role, "用户角色关联") {
-   id bigint <<generated>>
-   ur_user_id bigint 用户id
-   ur_role_id bigint 角色id
+Table(sys_group, "组") {
+    # id bigint <<generated>>
+    g_code varchar comment '组代码',
+    g_name varchar '组名称',
+    g_intro varchar '说明',
+}
+
+Table(sys_role, "角色") {
+    # id bigint <<generated>>
+    r_parent_id bigint '父ID默认为0跟节点',
+    r_code varchar '角色代码',
+    r_name varchar '角色名称',
+    r_intro varchar '角色介绍',
 }
 
 Table(sys_permission, "权限") {
-    id bigint <<generated>>
+    # id bigint <<generated>>
+    p_parent_id bigint '父节点 默认0为根节点',
+    p_code varchar '权限代码',
+    p_name varchar '权限名称',
+    p_intro varchar '权限说明',
+    p_category tinyint '权限类别 0：模块 1：按钮 2：资源',
+    p_is_show tinyint '是否显示 0：否 1：是',
+    p_uri varchar '资源路径',
+    p_is_status tinyint '权限状态 0：停用 1：启用',
+    p_is_exclude tinyint '是否排除校验权限 0：否 1：是',
+}
+
+Table(sys_user_group, "用户组") {
+    # id bigint <<generated>>
+    + ug_user_id bigint '用户ID',
+    + ug_group_id bigint '组ID',
+}
+
+Table(sys_role_group, "角色组") {
+    # id bigint <<generated>>
+    + rg_role_id bigint '组ID',
+    + rg_group_id bigint '组ID',
+}
+
+Table(sys_user_role, "用户角色关联") {
+    # id bigint <<generated>>
+    + ur_user_id bigint '用户ID',
+    + ur_role_id bigint '角色ID',
 }
 
 Table(sys_role_permission, "角色权限") {
-    id bigint <<generated>>
+    # id bigint <<generated>>
+    + rp_role_id bigint '角色ID',
+    + rp_permission_id bigint '权限ID',
 }
 
-sys_user_account }o--o| sys_user
+sys_user |o--o{ sys_user_account
+sys_user |o--o{ sys_user_group
 sys_user |o--o{ sys_user_role
 sys_role |o--o{ sys_user_role
 sys_role |o--o{ sys_role_permission
-sys_permission |o--o{ sys_role_permission
+sys_role_permission |o--o{ sys_permission
+sys_group |o--o{ sys_user_group
+sys_role |o--o{ sys_role_group
+sys_group |o--o{ sys_role_group
+}
+
 @enduml

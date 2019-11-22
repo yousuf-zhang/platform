@@ -16,7 +16,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserInfoDTO login(UserInfoDTO user) {
         // xxx 这里先不处理等整合完jpa在进行处理
-        return UserInfoDTO.builder().userId("aaaa")
+        return UserInfoDTO.builder()
+                //.userId("aaaa")
                 .username(user.getUsername())
                 .loginIp(WebUtils.getIpAddress())
                 .isFull(1).build();

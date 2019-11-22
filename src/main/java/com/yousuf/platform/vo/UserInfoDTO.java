@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -25,14 +24,20 @@ import java.util.Set;
 @NoArgsConstructor
 public class UserInfoDTO extends BaseDTO<UserInfoDTO, User> implements AuthToken {
     private static final long serialVersionUID = -1524846825994888401L;
-    @NotNull(message = "用户名不能为空")
     private String username;
-    @JSONField(serialize = false)
-    @NotNull(message = "密码不能为空")
-    private String password;
     private String likeName;
-    private String loginIp;
+    @JSONField(serialize = false)
+    private String password;
+    @JSONField(serialize = false)
+    private String salt;
+    private Integer status;
+    private Integer isDelete;
+    private Integer errorCount;
+    private String phone;
+    private String email;
     private Integer isFull;
+    private Integer isLock;
+    private String loginIp;
     @JSONField(serialize = false)
     private Set<String> authorities;
 

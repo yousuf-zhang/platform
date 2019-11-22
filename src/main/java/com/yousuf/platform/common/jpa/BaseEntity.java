@@ -38,4 +38,7 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "gmt_modified")
     private LocalDateTime modifiedAt;
 
+    @Column(name = "remark")
+    private String remark;
+
 }
