@@ -2,8 +2,10 @@ package com.yousuf.platform.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.yousuf.platform.auth.service.PermissionService;
+import com.yousuf.platform.common.core.BaseEnum;
 import com.yousuf.platform.common.core.RestCode;
 import com.yousuf.platform.common.core.RestResponse;
+import com.yousuf.platform.common.enums.RequestMethodEnum;
 import com.yousuf.platform.common.infrastructure.AuthToken;
 import com.yousuf.platform.common.util.JwtTokenHelper;
 import com.yousuf.platform.common.util.UserContextHelper;
@@ -32,12 +34,11 @@ import java.util.Objects;
 @Component
 @AllArgsConstructor
 public class AuthorizationInterceptor implements HandlerInterceptor {
-    private static final String METHOD_OPTIONS = "OPTIONS";
     private final PermissionService permissionService;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 跨域时两段验证，当请求方法为OPTIONS直接跳过，不用判断是否登录
-        if (Objects.equals(METHOD_OPTIONS, request.getMethod())) {
+        if (Objects.equals(RequestMethodEnum.OPTIONS, BaseEnum.findByText(RequestMethodEnum.class,request.getMethod()))) {
             return true;
         }
         String token = JwtTokenHelper.findTokenByRequest();

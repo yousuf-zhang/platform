@@ -1,4 +1,4 @@
-package com.yousuf.platform.entity;
+package com.yousuf.platform.entity.system;
 
 import com.yousuf.platform.common.enums.StatusEnum;
 import com.yousuf.platform.common.enums.TrueOrFalseEnum;
@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     @Column(name = "u_password_salt")
     private String salt;
     @Column(name = "u_status")
-    private StatusEnum status;
+    private StatusEnum statusEnum;
     @Column(name = "u_is_delete")
     private TrueOrFalseEnum isDelete;
     @Column(name = "u_password_error")

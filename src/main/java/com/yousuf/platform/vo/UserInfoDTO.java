@@ -4,7 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.google.common.base.Converter;
 import com.yousuf.platform.common.core.BaseDTO;
 import com.yousuf.platform.common.infrastructure.AuthToken;
-import com.yousuf.platform.entity.User;
+import com.yousuf.platform.entity.system.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

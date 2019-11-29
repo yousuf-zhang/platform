@@ -45,15 +45,17 @@ Table(sys_role, "角色") {
 
 Table(sys_permission, "权限") {
     # id bigint <<generated>>
-    p_parent_id bigint '父节点 默认0为根节点',
-    p_code varchar '权限代码',
+    p_parent_id bigint '父id 0根节点',
+    p_code varchar '权限唯一code代码',
     p_name varchar '权限名称',
     p_intro varchar '权限说明',
-    p_category tinyint '权限类别 0：模块 1：按钮 2：资源',
-    p_is_show tinyint '是否显示 0：否 1：是',
+    p_category varchar '权限类别 1：模块 2：按钮 3：资源',
     p_uri varchar '资源路径',
-    p_is_status tinyint '权限状态 0：停用 1：启用',
-    p_is_exclude tinyint '是否排除校验权限 0：否 1：是',
+    p_request_method tinyint '请求方式',
+    p_order tinyint '显示顺序',
+    p_is_show varchar '是否前台显示 1：是 0：否',
+    p_status tinyint '权限状态 1：正常 0：停用',
+    p_is_auth tinyint '是否需要权限验证 1：是 0：否',
 }
 
 Table(sys_user_group, "用户组") {

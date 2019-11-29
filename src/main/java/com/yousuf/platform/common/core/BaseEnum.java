@@ -99,4 +99,20 @@ public interface BaseEnum<V> {
                 .orElseThrow(() -> new EnumConvertException(GlobalCode.ENUMS_CONVERT_ERROR, "枚举转换异常"));
     }
 
+    /**
+     * <p> Title: findByCode
+     * <p> Description:  根据枚举的{@link BaseEnum#getText()}来查找.
+     *
+     * @param type type 实现了{@link BaseEnum}的枚举类
+     * @param text 枚举text
+     * @return T
+     * @throws EnumConvertException 枚举转换异常
+     *
+     * @author yousuf zhang 2019/11/17
+     **/
+    static <T extends Enum & BaseEnum<?>> T findByText(Class<T> type, String text) {
+        return findOptionalByText(type, text)
+                .orElseThrow(() -> new EnumConvertException(GlobalCode.ENUMS_CONVERT_ERROR, "枚举转换异常"));
+    }
+
 }

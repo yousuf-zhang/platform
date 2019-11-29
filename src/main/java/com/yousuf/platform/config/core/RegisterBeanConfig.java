@@ -5,6 +5,7 @@ import com.yousuf.platform.config.ApplicationConfig;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.ClassUtils;
 
 /**
  * <p> Title: RegisterBeanConfig
@@ -16,9 +17,10 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class RegisterBeanConfig {
     private final ApplicationConfig.RegisterBean registerBean;
+
     @Bean
     public AuthTokenCache authTokenCache() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        return (AuthTokenCache) Class.forName(registerBean.getTokenCacheClass()).newInstance();
+        return (AuthTokenCache) ClassUtils.forName(registerBean.getTokenCacheClass(), null).newInstance();
     }
 
 }
